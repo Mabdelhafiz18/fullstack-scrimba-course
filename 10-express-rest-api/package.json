@@ -1,0 +1,14 @@
+{
+  "name": "express-rest-api",
+  "version": "1.0.0",
+  "description": "A small REST API for managing tasks, built with Express.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

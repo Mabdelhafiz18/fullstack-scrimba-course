@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leads Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1 class="app__title">🔖 Leads Tracker</h1>
+
+    <div class="input-row">
+      <input
+        type="url"
+        id="input-el"
+        placeholder="https://example.com"
+        aria-label="Lead URL"
+      />
+      <button id="input-btn">Save</button>
+    </div>
+
+    <div class="actions">
+      <button id="tab-btn">Save current tab</button>
+      <button id="delete-btn" class="danger">Delete all</button>
+    </div>
+
+    <ul class="leads" id="ul-el"></ul>
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>

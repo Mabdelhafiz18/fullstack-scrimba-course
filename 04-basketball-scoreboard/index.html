@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basketball Scoreboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="scoreboard">
+    <h1 class="scoreboard__title">🏀 Scoreboard</h1>
+
+    <div class="teams">
+      <!-- Home team -->
+      <section class="team" id="home-team">
+        <h2 class="team__name">HOME</h2>
+        <p class="team__score" id="home-score">0</p>
+        <div class="team__buttons">
+          <button data-team="home" data-points="1">+1</button>
+          <button data-team="home" data-points="2">+2</button>
+          <button data-team="home" data-points="3">+3</button>
+        </div>
+      </section>
+
+      <span class="vs">VS</span>
+
+      <!-- Guest team -->
+      <section class="team" id="guest-team">
+        <h2 class="team__name">GUEST</h2>
+        <p class="team__score" id="guest-score">0</p>
+        <div class="team__buttons">
+          <button data-team="guest" data-points="1">+1</button>
+          <button data-team="guest" data-points="2">+2</button>
+          <button data-team="guest" data-points="3">+3</button>
+        </div>
+      </section>
+    </div>
+
+    <button class="reset-btn" id="reset-btn">Reset Game</button>
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>

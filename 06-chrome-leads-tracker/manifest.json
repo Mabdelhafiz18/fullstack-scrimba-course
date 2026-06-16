@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Leads Tracker",
+  "version": "1.0",
+  "description": "Save and track useful links. A learning project from the Scrimba Fullstack specialization.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Leads Tracker"
+  },
+  "permissions": ["tabs"]
+}

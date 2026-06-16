@@ -1,0 +1,124 @@
+:root {
+  --bg: #f3f4f6;
+  --card: #ffffff;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --accent: #2f6fed;
+  --border: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  padding: 2.5rem 1.5rem;
+  line-height: 1.5;
+}
+
+.dashboard {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.dashboard__header {
+  margin-bottom: 1.75rem;
+}
+
+.dashboard__header h1 {
+  font-size: 1.75rem;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.25rem;
+}
+
+.widget {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.widget--wide {
+  grid-column: 1 / -1;
+}
+
+.widget__title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.widget__sub {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.clock {
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.weather__city {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.weather__temp {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 0.25rem;
+}
+
+.quote {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  margin-bottom: 0.75rem;
+}
+
+.quote__author {
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+button {
+  padding: 0.55rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: var(--accent);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2358c9;
+}
+
+/* Error state shown when a fetch fails */
+.is-error {
+  color: #c0392b !important;
+}

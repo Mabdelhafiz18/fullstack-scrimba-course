@@ -1,0 +1,131 @@
+:root {
+  --cream: #fff8ec;
+  --ink: #4a3b32;
+  --pink: #ff8fa3;
+  --yellow: #ffd25a;
+  --mint: #7ad0a8;
+  --blue: #8fb8f0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Fredoka", "Segoe UI", system-ui, sans-serif;
+  background-color: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  padding: 5rem 1.5rem 4rem;
+  background-color: var(--pink);
+  color: #fff;
+}
+
+.hero__title {
+  font-size: clamp(2.2rem, 8vw, 3.5rem);
+  font-weight: 600;
+}
+
+.hero__subtitle {
+  margin-top: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 400;
+}
+
+/* Floating balloons */
+.balloons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.balloon {
+  position: absolute;
+  bottom: -50px;
+  font-size: 2.5rem;
+  animation: float-up 7s linear infinite;
+}
+
+.balloon--1 { left: 12%; animation-delay: 0s; }
+.balloon--2 { left: 48%; animation-delay: 2s; }
+.balloon--3 { left: 82%; animation-delay: 4s; }
+
+/* Message */
+.message {
+  max-width: 600px;
+  margin: 3rem auto 2rem;
+  padding: 0 1.5rem;
+  text-align: center;
+  font-size: 1.15rem;
+}
+
+/* Gifts */
+.gifts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 880px;
+  margin: 0 auto 4rem;
+  padding: 0 1.5rem;
+}
+
+.gift {
+  background-color: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+/* Each gift gets its own colour, like a kid picking crayons. */
+.gift:nth-child(1) { background-color: #fff0f2; }
+.gift:nth-child(2) { background-color: #fffae6; }
+.gift:nth-child(3) { background-color: #ecf7f1; }
+
+.gift:hover {
+  transform: translateY(-6px);
+}
+
+.gift__lid {
+  font-size: 2.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.gift__inner h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.gift__inner p {
+  font-size: 0.95rem;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 2rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* Animation */
+@keyframes float-up {
+  0%   { transform: translateY(0); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateY(-115vh); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .balloon { animation: none; display: none; }
+}

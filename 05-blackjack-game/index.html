@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blackjack</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="table">
+    <header class="table__header">
+      <h1>Blackjack</h1>
+      <p class="chips">Chips: $<span id="chips">200</span></p>
+    </header>
+
+    <p class="message" id="message">Want to play a round?</p>
+
+    <div class="cards" id="cards" aria-live="polite"></div>
+    <p class="sum">Sum: <span id="sum">0</span></p>
+
+    <div class="controls">
+      <button id="start-btn">Start game</button>
+      <button id="draw-btn" disabled>New card</button>
+    </div>
+  </main>
+
+  <script src="index.js"></script>
+</body>
+</html>

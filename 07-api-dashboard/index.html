@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="dashboard">
+    <header class="dashboard__header">
+      <h1>API Dashboard</h1>
+      <p class="subtitle">Live data from free, key-less public APIs.</p>
+    </header>
+
+    <div class="grid">
+      <!-- Clock -->
+      <section class="widget" id="clock-widget">
+        <h2 class="widget__title">🕒 Local Time</h2>
+        <p class="clock" id="clock">--:--:--</p>
+        <p class="widget__sub" id="date">Loading date…</p>
+      </section>
+
+      <!-- Weather -->
+      <section class="widget" id="weather-widget">
+        <h2 class="widget__title">🌤️ Weather</h2>
+        <p class="weather__city" id="weather-city">Lisbon</p>
+        <p class="weather__temp" id="weather-temp">--°</p>
+        <p class="widget__sub" id="weather-desc">Loading weather…</p>
+      </section>
+
+      <!-- Quote -->
+      <section class="widget widget--wide" id="quote-widget">
+        <h2 class="widget__title">💬 Random Quote</h2>
+        <blockquote class="quote" id="quote-text">Loading quote…</blockquote>
+        <p class="quote__author" id="quote-author"></p>
+        <button id="new-quote-btn">New quote</button>
+      </section>
+    </div>
+  </main>
+
+  <!-- Optional config (copy config.example.js -> config.js). Loaded if present. -->
+  <script src="config.js" onerror="console.info('No config.js found — using defaults.')"></script>
+  <script src="index.js"></script>
+</body>
+</html>
