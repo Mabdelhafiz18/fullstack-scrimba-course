@@ -27,6 +27,8 @@ plain HTML/CSS through to a TypeScript Next.js app.
 | 10 | Express REST API | Node.js, Express | [`10-express-rest-api`](./10-express-rest-api) |
 | 11 | SQL Practice | SQL | [`11-sql-practice`](./11-sql-practice) |
 | 12 | Next.js Mini Blog | Next.js, React, TypeScript | [`12-nextjs-mini-blog`](./12-nextjs-mini-blog) |
+| 13 | Expense Tracker (Full-Stack) | Express, SQLite, JS | [`13-expense-tracker`](./13-expense-tracker) |
+| 14 | Full-Stack Blog | Express, SQLite, React, Vite | [`14-fullstack-blog`](./14-fullstack-blog) |
 
 ## Topics covered
 

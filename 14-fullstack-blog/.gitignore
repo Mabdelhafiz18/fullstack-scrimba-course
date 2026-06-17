@@ -1,0 +1,15 @@
+# Dependencies (installed separately in server/ and client/)
+**/node_modules
+
+# Frontend build output
+client/dist
+*.local
+.vite
+
+# SQLite database (created at runtime in server/data)
+server/data/*.db
+server/data/*.db-shm
+server/data/*.db-wal
+
+*.log
+.env
