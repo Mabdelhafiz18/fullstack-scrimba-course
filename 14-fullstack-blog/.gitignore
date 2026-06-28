@@ -6,10 +6,7 @@ client/dist
 *.local
 .vite
 
-# SQLite database (created at runtime in server/data)
-server/data/*.db
-server/data/*.db-shm
-server/data/*.db-wal
-
 *.log
+
+# Environment files (DATABASE_URL etc.) — never commit real secrets.
 .env

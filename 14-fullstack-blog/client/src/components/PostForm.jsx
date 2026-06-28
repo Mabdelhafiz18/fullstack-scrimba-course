@@ -7,6 +7,7 @@ export default function PostForm({ initial = {}, onSubmit, submitLabel = "Publis
   const [title, setTitle] = useState(initial.title || "");
   const [excerpt, setExcerpt] = useState(initial.excerpt || "");
   const [tags, setTags] = useState(initial.tags || "");
+  const [coverUrl, setCoverUrl] = useState(initial.cover_url || "");
   const [body, setBody] = useState(initial.body || "");
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
@@ -16,7 +17,7 @@ export default function PostForm({ initial = {}, onSubmit, submitLabel = "Publis
     setError("");
     setSaving(true);
     try {
-      await onSubmit({ title, excerpt, tags, body });
+      await onSubmit({ title, excerpt, tags, body, cover_url: coverUrl });
     } catch (err) {
       setError(err.message);
       setSaving(false);
@@ -45,6 +46,17 @@ export default function PostForm({ initial = {}, onSubmit, submitLabel = "Publis
           value={excerpt}
           onChange={(e) => setExcerpt(e.target.value)}
           placeholder="One-line summary shown on cards"
+        />
+      </div>
+
+      <div className="field">
+        <label htmlFor="cover_url">Cover image URL</label>
+        <input
+          id="cover_url"
+          type="url"
+          value={coverUrl}
+          onChange={(e) => setCoverUrl(e.target.value)}
+          placeholder="https://… (optional)"
         />
       </div>
 

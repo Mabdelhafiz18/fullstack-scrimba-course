@@ -13,6 +13,15 @@
   --mustard: #f2a03d;
   --berry: #d24a77;
 
+  /* Stays dark in both themes: text that sits on a light accent chip. */
+  --ink-on-accent: #262019;
+  /* Code: inline chip background + the always-dark code block. */
+  --code-bg: #f3e6d2;
+  --code-block-bg: #262019;
+  --code-block-fg: #f7efe2;
+  /* Loading skeleton block tint. */
+  --skel-base: rgba(38, 32, 25, 0.1);
+
   --display: "Fredoka", system-ui, sans-serif;
   --body: "Inter", system-ui, -apple-system, sans-serif;
   --mono: "Space Mono", ui-monospace, monospace;
@@ -22,6 +31,17 @@
   --shadow-lg: 6px 6px 0 var(--ink);
   --max: 980px;
   --read: 68ch;
+}
+
+/* Dark mode: a warm near-black "paper" with light ink, so the cut-paper
+   stickers invert to light edges on dark. The accent palette stays the same. */
+:root[data-theme="dark"] {
+  --paper: #1e1915;
+  --surface: #2a241e;
+  --ink: #f3e7d4;
+  --muted: #ab9f8c;
+  --code-bg: #34291f;
+  --skel-base: rgba(255, 255, 255, 0.09);
 }
 
 * {
@@ -73,6 +93,44 @@ a {
   padding: 1.1rem 1.5rem;
   max-width: var(--max);
   margin: 0 auto;
+}
+
+.masthead__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.theme-toggle {
+  flex: none;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
+  color: var(--ink);
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.theme-toggle:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.theme-toggle:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* Share button confirmation. */
+.btn.is-copied {
+  background-color: var(--teal);
+  color: #fff;
 }
 
 .wordmark {
@@ -174,6 +232,84 @@ a {
   margin-top: 1.5rem;
 }
 
+/* ---------- Search + sort controls ---------- */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0 0;
+}
+
+.controls .searchbar__input {
+  flex: 1;
+  min-width: 0;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+}
+
+.sort__label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.sort__select {
+  font-family: var(--body);
+  font-size: 0.95rem;
+  padding: 0.7rem 2rem 0.7rem 0.9rem;
+  background-color: var(--surface);
+  color: inherit;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  /* custom caret (so it themes correctly) */
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: right 1rem center, right 0.72rem center;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+.sort__select:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-lg);
+}
+
+@media (max-width: 560px) {
+  .controls { flex-direction: column; align-items: stretch; }
+  .sort { justify-content: space-between; }
+}
+
+.searchbar__input {
+  width: 100%;
+  font-family: var(--body);
+  font-size: 1rem;
+  padding: 0.7rem 1rem;
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: inherit;
+}
+
+.searchbar__input:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.searchbar__input::placeholder {
+  color: var(--muted);
+}
+
 /* ---------- Post grid + cards (the signature) ---------- */
 .grid {
   display: grid;
@@ -183,6 +319,7 @@ a {
 }
 
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   background-color: var(--surface);
@@ -195,13 +332,25 @@ a {
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
+/* The title link, stretched to cover the whole card so the card stays clickable. */
+.card__link {
+  color: inherit;
+  text-decoration: none;
+}
+.card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
 /* Cut-paper tilt: cards lean slightly, then straighten on hover. */
 .card:nth-child(3n + 1) { transform: rotate(-1.4deg); }
 .card:nth-child(3n + 2) { transform: rotate(0.8deg); }
 .card:nth-child(3n + 3) { transform: rotate(-0.5deg); }
 
 .card:hover,
-.card:focus-visible {
+.card:focus-within {
   transform: rotate(0deg) translate(-2px, -2px);
   box-shadow: var(--shadow-lg);
 }
@@ -209,6 +358,15 @@ a {
 .card__strip {
   height: 10px;
   border-bottom: 2px solid var(--ink);
+}
+
+.card__cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 2px solid var(--ink);
+  background-color: var(--paper);
 }
 
 .card__body {
@@ -243,6 +401,9 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+  /* Sit above the card's stretched link so tag pills stay independently clickable. */
+  position: relative;
+  z-index: 2;
 }
 
 .pill {
@@ -254,11 +415,19 @@ a {
   border: 1.5px solid var(--ink);
   border-radius: 999px;
   color: #fff;
+  text-decoration: none;
+}
+
+/* Linked pills (e.g. on cards / post pages) lift slightly on hover. */
+a.pill:hover,
+a.pill:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .pill--0 { background-color: var(--tomato); }
 .pill--1 { background-color: var(--teal); }
-.pill--2 { background-color: var(--mustard); color: var(--ink); }
+.pill--2 { background-color: var(--mustard); color: var(--ink-on-accent); }
 .pill--3 { background-color: var(--berry); }
 
 /* ---------- Single post ---------- */
@@ -290,11 +459,110 @@ a {
   margin: 0.75rem 0 1rem;
 }
 
+.post__updated {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--ink-on-accent);
+  background-color: var(--mustard);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.12rem 0.5rem;
+  margin: -0.4rem 0 1.2rem;
+}
+
+.card__edited {
+  font-style: italic;
+}
+
 .post__actions {
   display: flex;
   gap: 0.6rem;
   margin: 1.25rem 0 2rem;
 }
+
+/* Featured cover image on the single post. */
+.post__cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background-color: var(--paper);
+  margin: 0.5rem 0 1.75rem;
+}
+
+/* ---------- Related posts ---------- */
+.related {
+  margin-top: 3.5rem;
+  padding-top: 1.75rem;
+  border-top: 2px dashed var(--ink);
+}
+
+.related__title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.45rem;
+  margin-bottom: 1.25rem;
+}
+
+/* The related grid sits inside the narrower post column — keep cards compact. */
+.related .grid {
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+  padding: 0;
+}
+
+/* ---------- Table of contents ---------- */
+.toc {
+  max-width: var(--read);
+  margin: 0 0 2.25rem;
+  padding: 1rem 1.25rem;
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  border-left-width: 6px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.toc__label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+
+.toc__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.toc__item a {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1.5px solid transparent;
+}
+
+.toc__item a:hover {
+  border-bottom-color: var(--tomato);
+  color: var(--tomato);
+}
+
+/* Nested headings indent under their section. */
+.toc__item--h3 { padding-left: 1.1rem; font-size: 0.95rem; color: var(--muted); }
+
+/* Smooth in-page jumps to headings (unless the reader prefers no motion). */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+.prose :is(h1, h2, h3) { scroll-margin-top: 1.25rem; }
 
 /* Rendered Markdown */
 .prose {
@@ -332,14 +600,14 @@ a {
 .prose code {
   font-family: var(--mono);
   font-size: 0.9em;
-  background-color: #f3e6d2;
+  background-color: var(--code-bg);
   padding: 0.1rem 0.35rem;
   border-radius: 4px;
 }
 
 .prose pre {
-  background-color: var(--ink);
-  color: #f7efe2;
+  background-color: var(--code-block-bg);
+  color: var(--code-block-fg);
   padding: 1rem 1.1rem;
   border-radius: 10px;
   overflow-x: auto;
@@ -362,6 +630,11 @@ a {
   font-weight: 700;
   font-size: 2rem;
   margin-bottom: 1.5rem;
+}
+
+.form-page__hint {
+  color: var(--muted);
+  margin: -1rem 0 1.5rem;
 }
 
 .field {
@@ -434,6 +707,105 @@ a {
   padding: 4rem 0;
 }
 
+/* ---------- Loading skeletons ---------- */
+.card--skeleton {
+  pointer-events: none; /* no hover/tilt straighten while loading */
+}
+
+.skel {
+  display: block;
+  border-radius: 6px;
+  background-color: var(--skel-base);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Light sweep across the blank blocks. */
+.skel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  animation: skel-sweep 1.3s ease-in-out infinite;
+}
+
+@keyframes skel-sweep {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.skel--date { width: 40%; height: 0.72rem; }
+.skel--title { width: 92%; height: 1.3rem; }
+.skel--text { width: 100%; height: 0.95rem; }
+.skel--short { width: 62%; }
+.skel--pill { display: inline-block; width: 3.4rem; height: 1.05rem; border-radius: 999px; }
+
+/* Single-post skeleton */
+.skel--back { width: 6rem; height: 0.85rem; margin-bottom: 1.5rem; }
+.skel--posttitle { width: 75%; height: 2.6rem; margin-bottom: 0.9rem; }
+.skel--meta { width: 45%; height: 0.85rem; }
+.post__skel-body {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+/* ---------- Empty / error sticker ---------- */
+.emptystate {
+  max-width: 30rem;
+  margin: 2.5rem auto 4rem;
+  padding: 2.25rem 1.75rem;
+  text-align: center;
+  background-color: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transform: rotate(-1deg);
+}
+
+.emptystate__badge {
+  width: 3.6rem;
+  height: 3.6rem;
+  margin: 0 auto 1rem;
+  display: grid;
+  place-items: center;
+  font-family: var(--display);
+  font-size: 1.9rem;
+  line-height: 1;
+  background-color: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+.emptystate--error .emptystate__badge {
+  background-color: var(--tomato);
+  color: #fff;
+}
+
+.emptystate__title {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.emptystate__text {
+  color: var(--muted);
+  margin-top: 0.4rem;
+}
+
+.emptystate__action {
+  margin-top: 1.4rem;
+}
+
 /* ---------- Footer ---------- */
 .footer {
   margin-top: auto;
@@ -460,5 +832,7 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .card { transform: none !important; }
+  .emptystate { transform: none !important; }
+  .skel::after { animation: none !important; }
   * { transition: none !important; }
 }
